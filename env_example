@@ -1,0 +1,13 @@
+# Discord settings
+DISCORD_TOKEN=your_discord_bot_token_here
+DISCORD_GUILD_ID=123456789012345678
+DISCORD_ROLE_ID=987654321098765432
+
+# Assist / Home Assistant
+HAURL=192.168.5.2:8123
+HATOKEN=your_home_assistant_long_lived_token
+DEFAULT_AGENT=default_pipeline_id
+
+# Optional
+ASSIST_ID=assistant_1
+SSL=0   # set to 1 if HA is using SSL/wss
