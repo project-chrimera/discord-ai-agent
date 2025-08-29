@@ -27,6 +27,10 @@ HA_URL = os.getenv("HAURL")
 HA_TOKEN = os.getenv("HATOKEN")
 DEFAULT_AGENT = os.getenv("DEFAULT_AGENT")
 SSL = os.getenv("SSL", "0") == "1"
+API_URL = os.getenv("API_URL")              # REST API base URL, e.g., http://127.0.0.1:5000
+API_TOKEN = os.getenv("API_TOKEN")          # REST API token for authorization
+MOD_IDS = [int(x.strip()) for x in os.getenv("MOD_IDS", "").split(",") if x.strip()]
+
 
 # -----------------------------
 # Discord bot setup
@@ -194,6 +198,55 @@ async def on_message(message):
             await message.channel.send(chunk)
 
     await bot.process_commands(message)
+
+
+HEADERS = {"X-API-Key": API_TOKEN}
+# ---- Helper: mod check decorator ----
+def is_mod():
+    async def predicate(ctx):
+        if any(role.id in MOD_IDS for role in ctx.author.roles):
+            print(f"✅ [MOD] {ctx.author} ran `{ctx.command}`")
+            return True
+        else:
+            print(f"❌ [DENY] {ctx.author} tried `{ctx.command}`")
+            return False
+    return commands.check(predicate)
+
+# ---- Commands using REST API ----
+@bot.command(name="softban")
+@is_mod()
+async def softban(ctx, user: discord.Member = None):
+    if not user:
+        await ctx.send("Usage: `!softban @user`")
+        return
+    
+    url = f"{API_URL}/api/soft_ban/{user.id}"
+    try:
+        resp = requests.post(url, headers=HEADERS)
+        if resp.status_code == 200:
+            await ctx.send(f"✅ User `{user.name}` soft-banned via API.")
+        else:
+            await ctx.send(f"❌ API error: {resp.json().get('error', {}).get('message', 'Unknown error')}")
+    except Exception as e:
+        await ctx.send(f"❌ Request failed: {e}")
+
+@bot.command(name="timeout")
+@is_mod()
+async def timeout(ctx, user: discord.Member = None, duration: int = None):
+    if not user or not duration:
+        await ctx.send("Usage: `!timeout @user duration_in_seconds`")
+        return
+    
+    url = f"{API_URL}/api/timeout/{user.id}/{duration}"
+    try:
+        resp = requests.post(url, headers=HEADERS)
+        if resp.status_code == 200:
+            await ctx.send(f"⏱ User `{user.name}` timed out for {duration} seconds via API.")
+        else:
+            await ctx.send(f"❌ API error: {resp.json().get('error', {}).get('message', 'Unknown error')}")
+    except Exception as e:
+        await ctx.send(f"❌ Request failed: {e}")
+
 
 
 # -----------------------------

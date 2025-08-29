@@ -11,3 +11,10 @@ DEFAULT_AGENT=default_pipeline_id
 # Optional
 ASSIST_ID=assistant_1
 SSL=0   # set to 1 if HA is using SSL/wss
+
+
+API_TOKEN=sametokenaseagle
+API_URL=http://127.0.0.1:5000
+#mod groups
+MOD_IDS=123456,12345
+
