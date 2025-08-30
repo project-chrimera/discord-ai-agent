@@ -1,20 +1,27 @@
-# Discord settings
-DISCORD_TOKEN=your_discord_bot_token_here
-DISCORD_GUILD_ID=123456789012345678
-DISCORD_ROLE_ID=987654321098765432
+DISCORD_TOKEN=<your_discord_bot_token>
+DISCORD_GUILD=<your_guild_id>
+DISCORD_ROLE_ID=<role_required_to_use_bot>
+DISCORD_WP_ROLE_ID=<optional_wp_role_id>
 
-# Assist / Home Assistant
-HAURL=192.168.5.2:8123
-HATOKEN=your_home_assistant_long_lived_token
-DEFAULT_AGENT=default_pipeline_id
+#haurl with out http(s)
+HAURL=<home_assistant_url>
+SSL=0
+HATOKEN=<home_assistant_token>
+DEFAULT_AGENT=<default_ai_agent>
+API_URL=<eagle_api_url>
+API_TOKEN=<eagle_api_token>
+MOD_IDS=1234567890,9876543210
 
-# Optional
-ASSIST_ID=assistant_1
-SSL=0   # set to 1 if HA is using SSL/wss
+MYSQL_USER=<mysql_user>
+MYSQL_HOST=<mysql_host>
+MYSQL_PASSWORD=<mysql_password>
+MYSQL_DATABASE=<mysql_database>
 
+EVENT_CHANNEL_ID=<discord_channel_id_for_events>
+NEXTCLOUD_URL=<nextcloud_url>
+NEXTCLOUD_USER=<nextcloud_user>
+NEXTCLOUD_PASS=<nextcloud_password>
+CALENDAR_NAME=<calendar_name>
 
-API_TOKEN=sametokenaseagle
-API_URL=http://127.0.0.1:5000
-#mod groups
-MOD_IDS=123456,12345
-
+YAP2STW_API=<yap2stw_api_url>
+YAP2STW_TOKEN=<yap2stw_token>

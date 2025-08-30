@@ -29,9 +29,18 @@ Setup
 Usage
 -----
 
-- The bot listens for mentions in Discord within the configured guild.
-- Only members with the specified role ID can interact with the bot.
-- It uses Home Assistant Assist pipelines to generate responses.
+- **Conversational AI**: Users can mention the bot to interact with an AI assistant. Per-user conversation memory is supported.
+- **Home Assistant Integration**:
+  - Fetch entity states (`!haget`)
+  - Call HASS actions (`!hacall`)
+- **Moderation via the bot eagle**:
+  - Softban users (`!softban @user`)
+  - Timeout users (`!timeout @user duration_in_seconds`)
+- **Nextcloud Calendar Events**:
+  - Sends Discord notifications for upcoming events.
+  - Supports participant-specific notifications via YAP2STW API.
+- **CLI Utilities**:
+  - List available AI agents with `python bot.py --list-agents`
 
 Extra
 -----
@@ -43,6 +52,9 @@ Extra
 Requirements
 ------------
 
-- Python 3.9+
-- Discord bot token
-- Access to a Home Assistant instance with Assist enabled
+- Python 3.10+
+- Discord Bot token
+- Home Assistant token
+- MySQL database for HASS requests/actions
+- Nextcloud credentials for calendar access
+- YAP2STW API for participant mapping
